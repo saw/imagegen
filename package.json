@@ -1,0 +1,10 @@
+{
+  "name": "gennny",
+  "version": "0.0.0",
+  "description": "make a shitload of images",
+  "dependencies": {
+    "gm": "*",
+	"async":"*",
+	"canvas": "*"
+  }
+}
