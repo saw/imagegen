@@ -9,25 +9,28 @@ var Canvas = require('canvas')
   , fs = require('fs')
   , ctx = canvas.getContext('2d');
 
-  
-  ctx.rotate(.1);
+ 
+  ctx.fillStyle = "white";
   
   var q = async.queue(function (task, callback) {
-	  	ctx.font = '200px Impact';
+	  	ctx.font = '700px Impact';
 	  	ctx.clearRect ( 0 , 0 , 5000 , 4000 );
-	
-	  	ctx.fillText("IMAGE: " + task.num, 1000, 1000);
+			ctx.fillStyle = "white";
+		ctx.fillRect( 0 , 0 , 5000 , 4000 );
+		 ctx.fillStyle = "black";
+	  	ctx.fillText("IMAGE: " + task.num, 100, 1500);
 
-	  	var out = fs.createWriteStream('/Users/saw/test_images/img_'+task.num+'.png');
+	  	var out = fs.createWriteStream('test_images/test.jpg');
 	
-	  	var stream = canvas.pngStream();
+	  	var stream = canvas.createJPEGStream({quality : 40});
 
-	  	stream.on('data', function(chunk){
-	  	  out.write(chunk);
-	  	});
+	  	// stream.on('data', function(chunk){
+// 	  	  out.write(chunk);
+// 	  	});
+		stream.pipe(out);
 
 	  	stream.on('end', function(){
-	  	  console.log('saved png' + task.num);
+	  	  console.log('saved jpg' + task.num);
 		  callback();
 	  	});
 	  
